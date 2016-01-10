@@ -1,10 +1,10 @@
 var navi = (function(){
   var $window = $(window);
   var $navUl = $('.navigation ul');
+  var $header = $('#header');
 
   return {
     toggle: function() {
-
         $window.bind('load resize',function(){
           winWidth = $window.width();
           if (winWidth < 850){
@@ -27,7 +27,8 @@ var navi = (function(){
       });
     },
     highlighter: function(hash,top, viewportTop){
-      if ( viewportTop > top - 200 ) {
+      var headerHeight = $header.height();
+      if ( viewportTop > top - headerHeight ) {
         $(".navigation ul li a").each(function(index){
           if (this.hash == hash){
             $(this).addClass('selected');
@@ -40,8 +41,7 @@ var navi = (function(){
     scrollNav: function(){
       $window.bind('scroll load', function(){
         var viewportTop = $window.scrollTop();
-        var winHeight = $(document).innerHeight();
-        var a  = $('.navigation ul li a');
+        var a  = $navUl.find('a');
         for (var i=0; i < a.length; i++){
           var currentAnchor = a[i];
           var nextAnchor = a[i];
